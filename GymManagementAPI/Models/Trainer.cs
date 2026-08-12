@@ -5,7 +5,6 @@ namespace GymManagementAPI.Models
     public class Trainer
     {
         [Key]
-        [Required]
         public int Id { get; set; }
 
         [Required]

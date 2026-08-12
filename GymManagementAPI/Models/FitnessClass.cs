@@ -2,7 +2,7 @@
 
 namespace GymManagementAPI.Models
 {
-    public enum DifficultyLevel
+    public enum DifficultyLevelType
     {
         Beginner, 
         Intermediate, 
@@ -26,7 +26,7 @@ namespace GymManagementAPI.Models
         public required string Category { get; set; }
 
         [Required]
-        public required DifficultyLevel Difficulty { get; set; }
+        public required DifficultyLevelType DifficultyLevel { get; set; }
 
         [Required]
         public required int DurationMinutes { get; set; }
@@ -46,10 +46,10 @@ namespace GymManagementAPI.Models
         public bool IsCancelled { get; set; } = false;
 
 
-        public int TrainerId { get; set; }
+        public int TrainerId { get; set; } // FK
         public Trainer? Trainer { get; set; }
 
-        //public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     }
 }

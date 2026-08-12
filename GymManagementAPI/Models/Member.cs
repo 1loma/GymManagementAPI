@@ -15,7 +15,6 @@ namespace GymManagementAPI.Models
     public class Member
     {
         [Key]
-        [Required]
         public int Id { get; set; }
 
 
@@ -50,7 +49,7 @@ namespace GymManagementAPI.Models
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
         // public ICollection<PaymentTransaction> PaymentTransactions { get; set } = new List<PaymentTransaction>();
     }
 }
