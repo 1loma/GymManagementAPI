@@ -16,7 +16,6 @@ namespace GymManagementAPI.Models
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
 
@@ -46,10 +45,10 @@ namespace GymManagementAPI.Models
         public DateTime? MembershipEndDate { get; set; }
 
         [Required]
-        public bool IsActive { get; set; } //
+        public bool IsActive { get; set; } = true;
 
         [Required]
-        public DateTime CreatedAt { get; set; } //
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
         // public ICollection<PaymentTransaction> PaymentTransactions { get; set } = new List<PaymentTransaction>();

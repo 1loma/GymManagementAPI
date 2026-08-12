@@ -4,6 +4,7 @@ using GymManagementAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagementAPI.Migrations
 {
     [DbContext(typeof(GymManagementAPIDbContext))]
-    partial class GymManagementAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260812010535_Created Members and Trainers")]
+    partial class CreatedMembersandTrainers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
