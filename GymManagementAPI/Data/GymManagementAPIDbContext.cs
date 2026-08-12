@@ -9,6 +9,7 @@ namespace GymManagementAPI.Data
 
         public DbSet<Member> Members { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
+        public DbSet<FitnessClass> FitnessClasses { get; set; }
 
     }
 }

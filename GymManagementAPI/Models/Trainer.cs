@@ -35,7 +35,7 @@ namespace GymManagementAPI.Models
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        //public ICollection<FitnessClass> FitnessClasses { get; set; } = new List<FitnessClass>;
+        public ICollection<FitnessClass> FitnessClasses { get; set; } = new List<FitnessClass>();
     
     
     }
