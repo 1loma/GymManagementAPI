@@ -3,7 +3,7 @@
 namespace GymManagementAPI.Models
 {
 
-    public enum StatusType
+    public enum BookingStatusType
     {
         Confirmed, 
         Cancelled, 
@@ -18,7 +18,7 @@ namespace GymManagementAPI.Models
 
         public DateTime BookingDate { get; set; } = DateTime.UtcNow;
 
-        public StatusType Status { get; set; }
+        public BookingStatusType Status { get; set; }
 
         [MaxLength(200)]
         public string? Notes { get; set; }
@@ -30,6 +30,8 @@ namespace GymManagementAPI.Models
 
         public int FitnessClassId { get; set; } // FK
         public FitnessClass? FitnessClass { get; set; }
+
+        public PaymentTransaction? PaymentTransaction { get; set; }
 
     }
 }

@@ -32,24 +32,19 @@ namespace GymManagementAPI.Models
         [Phone]
         public required string PhoneNumber { get; set; }
 
-        [Required]
-        public required DateTime DateOfBirth { get; set; }
+        public  DateTime DateOfBirth { get; set; }
 
-        [Required]
-        public required MembershipType Membership { get; set; }
+        public MembershipType Membership { get; set; }
 
-        [Required]
         public DateTime MembershipStartDate { get; set; }
 
         public DateTime? MembershipEndDate { get; set; }
 
-        [Required]
         public bool IsActive { get; set; } = true;
 
-        [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
          public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-        // public ICollection<PaymentTransaction> PaymentTransactions { get; set } = new List<PaymentTransaction>();
+         public ICollection<PaymentTransaction> PaymentTransactions { get; set; } = new List<PaymentTransaction>();
     }
 }

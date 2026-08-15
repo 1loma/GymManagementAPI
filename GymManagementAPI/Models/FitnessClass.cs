@@ -25,10 +25,8 @@ namespace GymManagementAPI.Models
         [Required]
         public required string Category { get; set; }
 
-        [Required]
-        public required DifficultyLevelType DifficultyLevel { get; set; }
+        public DifficultyLevelType DifficultyLevel { get; set; }
 
-        [Required]
         public required int DurationMinutes { get; set; }
 
         [Required]
@@ -39,10 +37,8 @@ namespace GymManagementAPI.Models
         [MaxLength(100)]
         public string? Location { get; set; }
 
-        [Required]
-        public required DateTime ScheduleDateTime { get; set; }
+        public DateTime ScheduleDateTime { get; set; }
 
-        [Required]
         public bool IsCancelled { get; set; } = false;
 
 

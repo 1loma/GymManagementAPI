@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagementAPI.Migrations
 {
     [DbContext(typeof(GymManagementAPIDbContext))]
-    [Migration("20260812014550_Added Booking")]
-    partial class AddedBooking
+    [Migration("20260815162933_Initial Gym Managenet System")]
+    partial class InitialGymManagenetSystem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,8 +46,9 @@ namespace GymManagementAPI.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -152,7 +153,52 @@ namespace GymManagementAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("GymManagementAPI.Models.PaymentTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalTransactionId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StatusOfPayment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId")
+                        .IsUnique();
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("PaymentTransactions");
                 });
 
             modelBuilder.Entity("GymManagementAPI.Models.Trainer", b =>
@@ -197,6 +243,9 @@ namespace GymManagementAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Trainers");
                 });
 
@@ -211,7 +260,7 @@ namespace GymManagementAPI.Migrations
                     b.HasOne("GymManagementAPI.Models.Member", "Member")
                         .WithMany("Bookings")
                         .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("FitnessClass");
@@ -230,6 +279,30 @@ namespace GymManagementAPI.Migrations
                     b.Navigation("Trainer");
                 });
 
+            modelBuilder.Entity("GymManagementAPI.Models.PaymentTransaction", b =>
+                {
+                    b.HasOne("GymManagementAPI.Models.Booking", "Booking")
+                        .WithOne("PaymentTransaction")
+                        .HasForeignKey("GymManagementAPI.Models.PaymentTransaction", "BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GymManagementAPI.Models.Member", "Member")
+                        .WithMany("PaymentTransactions")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("GymManagementAPI.Models.Booking", b =>
+                {
+                    b.Navigation("PaymentTransaction");
+                });
+
             modelBuilder.Entity("GymManagementAPI.Models.FitnessClass", b =>
                 {
                     b.Navigation("Bookings");
@@ -238,6 +311,8 @@ namespace GymManagementAPI.Migrations
             modelBuilder.Entity("GymManagementAPI.Models.Member", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("PaymentTransactions");
                 });
 
             modelBuilder.Entity("GymManagementAPI.Models.Trainer", b =>
